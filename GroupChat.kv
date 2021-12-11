@@ -1,0 +1,71 @@
+
+<Button>
+	background_normal: ''
+	background_color: (0,80/255,64/255,1)
+	color:(252/255,1,254/255,1)
+
+<MyFloatLayout>:
+	message:message
+	spacing: 5
+	BoxLayout:
+		size: root.width, root.height
+		cols:1
+		orientation: "vertical"
+		Label:
+			id:header_label
+			text: "You have joined the group chat"
+			size_hint_y:0.1
+			halign:"center"
+			valign:"top"
+			color: (17/255,252/255,205/255,1)
+		Label:
+			id: ChatPage
+			text: ""
+			height: self.texture_size[1]
+			text_size: self.width, None
+			halign:"left"
+			valign:"top"
+			color: (55/255,193/255,163/255,1)
+
+		BoxLayout:
+			cols:3
+			spacing: 5
+			TextInput:
+				id:message
+				multiline: False
+				size_hint: (0.7,0.2)
+				background_normal: ''
+				background_color: (234/255,237/255,236/255,1)
+
+			Button:
+				text: "Attach\n  File"
+				size_hint: (0.1,0.2)
+				on_press: root.file_send()
+
+			Button:
+				text: "Send"
+				size_hint: (0.2,0.2)
+				on_press:root.message_send()
+
+<FileSelectLayout>:
+	id: FileSelector
+	BoxLayout:
+		cols: 1
+		orientation: "vertical"
+		size: root.width, root.height
+		BoxLayout:
+			cols:1
+			size_hint_y:0.8
+			FileChooserIconView:
+				id: FileChooser
+				path: root.defaultPath
+				on_selection: FileSelector.selected(FileChooser.selection)
+		BoxLayout:
+			cols:2
+			size_hint_y:0.2
+			Button:
+				text: "Select"
+				on_press:root.select_event()
+			Button:
+				text: "Cancel"
+				on_press:root.cancel_event()
